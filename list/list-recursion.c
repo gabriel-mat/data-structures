@@ -7,11 +7,9 @@ typedef struct node
     struct node *next;
 } node;
 
-node *globalHead;
-
 void Print(node *N);
 void ReversePrint(node *N);
-void ReverseList(node *N);
+node *ReverseList(node *N);
 node *Insert(node *head, int data);
 
 int main()
@@ -35,14 +33,13 @@ int main()
     printf("\nReversed print: ");
     ReversePrint(head);
 
-    globalHead = head;
-    ReverseList(globalHead); // access and modify the global variable
+    head = ReverseList(head); // access and modify the head node
 
     printf("\n\nPrint (after reversion): ");
-    Print(globalHead);
+    Print(head);
 
     printf("\nReversed print (after reversion): ");
-    ReversePrint(globalHead);
+    ReversePrint(head);
 
     printf("\n");
 
@@ -100,17 +97,16 @@ void ReversePrint(node *N)
     printf("%d", N->data);
 }
 
-void ReverseList(node *N)
+node *ReverseList(node *N)
 {
-    if (N->next == NULL)
-    {
-        globalHead = N;
-        return;
-    }
+    if (N->next == NULL || N == NULL)
+        return N;
 
-    ReverseList(N->next);
+    node *newHead = ReverseList(N->next);
 
-    node *previous = N->next; // the next node will be the previous
-    previous->next = N;
+    node *n = N->next;
+    n->next = N;
     N->next = NULL;
+
+    return newHead;
 }
