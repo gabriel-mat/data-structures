@@ -10,30 +10,56 @@ struct node
 struct node *head; // global
 
 void Print();
-void InsertValue(int value);
+void InsertFirstPosition(int value);
+void InsertNthPosition(int value, int position);
 
 int main()
 {
-    int num, value;
+    int num, value, mode, position;
 
     head = NULL; // empty list
 
-    printf("How many elements?\n");
+    printf("(01) Insert at 1st position.\n(02) Insert at a given position.\n\nMode: ");
+    scanf("%d", &mode);
+
+    printf("Number of elements: ");
     scanf("%d", &num);
 
-    for (int i = 0; i < num; i++)
+    switch (mode)
     {
-        printf("\nenter the number: ");
-        scanf("%d", &value);
-        InsertValue(value);
-    }
+    case 1:
+        // Inserting at fisrt position
 
-    Print();
+        for (int i = 0; i < num; i++)
+        {
+            printf("\nenter the number: ");
+            scanf("%d", &value);
+            InsertFirstPosition(value);
+            Print();
+        }
+        break;
+
+    case 2:
+        // Inserting at a given position
+
+        for (int i = 0; i < num; i++)
+        {
+            printf("\n<value> <position>: ");
+            scanf("%d %d", &value, &position);
+            InsertNthPosition(value, position);
+            Print();
+        }
+        break;
+
+    default:
+        printf("! you failed !\n");
+        break;
+    }
 
     return 0;
 }
 
-void InsertValue(int value)
+void InsertFirstPosition(int value)
 {
     // Inserting at beginning
 
@@ -58,4 +84,30 @@ void Print()
         if (temp != NULL)
             printf("> ");
     }
+
+    printf("\n");
+}
+
+void InsertNthPosition(int value, int position)
+{
+    struct node *newNode = (struct node *)malloc(sizeof(struct node));
+    struct node *temp = head;
+
+    position--; // now the 1st position is 0
+
+    (*newNode).data = value;
+    (*newNode).next = NULL;
+
+    if (position == 0)
+    {
+        newNode->next = head;
+        head = newNode;
+        return;
+    }
+
+    for (int i = 0; i < position - 1; i++)
+        temp = temp->next;
+
+    newNode->next = temp->next;
+    temp->next = newNode;
 }
