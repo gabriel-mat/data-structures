@@ -3,6 +3,11 @@
 
 #define MAX_SIZE 50
 
+/*
+ *   We can also reverse a linked list using a
+ *   <struct node*> stack and Push() the nodes into it.
+ */
+
 struct stack
 {
     char data;
