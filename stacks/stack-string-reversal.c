@@ -6,6 +6,20 @@
 /*
  *   We can also reverse a linked list using a
  *   <struct node*> stack and Push() the nodes into it.
+ *   e.g.:
+ * 
+ *      node *temp = stack.top();
+ *      head = temp;
+ *      stack.pop();
+ * 
+ *      while(!stack.isEmpty())
+ *      {
+ *          temp -> next = stack.top();        
+ *          temp = temp -> next;
+ *          stack.pop();
+ *      }
+ * 
+ *      temp -> next = NULL;
  */
 
 struct stack
