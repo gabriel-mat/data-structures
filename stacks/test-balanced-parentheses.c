@@ -80,6 +80,9 @@ void Push(char data)
 
 int rightClose(char data)
 {
+    if (top == NULL)
+        return 0;
+
     if (top->data == '(' && data == ')')
         return 1;
 
