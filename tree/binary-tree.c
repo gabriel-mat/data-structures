@@ -106,5 +106,5 @@ void Insert(struct bst_node **root, int value)
     if (value <= (**root).data)
         Insert(&((**root).left), value);
     else
-        Insert(&((**root).left), value);
+        Insert(&((**root).right), value);
 }
