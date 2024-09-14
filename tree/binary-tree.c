@@ -24,11 +24,12 @@ struct bst_node *root_ptr = NULL;
 // functions
 void ShowOptions();
 bool Search(struct bst_node *root, int value);
-void Insert(struct bst_node *root, int value);
+void Insert(struct bst_node **root, int value);
 
 int main()
 {
     int data;
+    bool search;
     enum options opt;
 
     do
@@ -43,7 +44,18 @@ int main()
 
         case 1:
             scanf("%d", &data);
-            Insert(root_ptr, data);
+            Insert(&root_ptr, data);
+            break;
+
+        case 2:
+            scanf("%d", &data);
+            search = Search(root_ptr, data);
+
+            if (search == true)
+                printf("found!\n");
+            else
+                printf("not found!\n");
+
             break;
 
         default:
@@ -60,6 +72,7 @@ void ShowOptions()
     printf("options:\n");
     printf("(00) quit\n");
     printf("(01) insert node\n");
+    printf("(02) search value\n");
     printf("\ninsert an option: ");
 }
 
@@ -76,13 +89,13 @@ bool Search(struct bst_node *root, int value)
         Search(root->right, value);
 }
 
-void Insert(struct bst_node *root, int value)
+void Insert(struct bst_node **root, int value)
 {
-    if (root == NULL)
+    if (*root == NULL)
     {
         struct bst_node *new_node = (struct bst_node *)malloc(sizeof(struct bst_node));
 
-        root = new_node;
+        *root = new_node;
 
         new_node->data = value;
         new_node->left = NULL;
@@ -90,8 +103,8 @@ void Insert(struct bst_node *root, int value)
         return;
     }
 
-    if (value <= root->data)
-        Insert(root->left, value);
+    if (value <= (**root).data)
+        Insert(&((**root).left), value);
     else
-        Insert(root->right, value);
+        Insert(&((**root).left), value);
 }
