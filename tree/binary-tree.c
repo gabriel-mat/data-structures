@@ -23,6 +23,8 @@ struct bst_node *root_ptr = NULL;
 
 // functions
 void ShowOptions();
+int min_element(struct bst_node *root);
+int max_element(struct bst_node *root);
 bool Search(struct bst_node *root, int value);
 void Insert(struct bst_node **root, int value);
 
@@ -58,6 +60,14 @@ int main()
 
             break;
 
+        case 3:
+            printf("min: %d\n", min_element(root_ptr));
+            break;
+
+        case 4:
+            printf("max: %d\n", max_element(root_ptr));
+            break;
+
         default:
             printf("\ntry again!\n");
             break;
@@ -69,10 +79,13 @@ int main()
 
 void ShowOptions()
 {
+    printf("\n");
     printf("options:\n");
     printf("(00) quit\n");
     printf("(01) insert node\n");
     printf("(02) search value\n");
+    printf("(03) min\n");
+    printf("(04) max\n");
     printf("\ninsert an option: ");
 }
 
@@ -107,4 +120,20 @@ void Insert(struct bst_node **root, int value)
         Insert(&((**root).left), value);
     else
         Insert(&((**root).right), value);
+}
+
+int min_element(struct bst_node *root)
+{
+    while (root->left != NULL)
+        root = root->left;
+
+    return root->data;
+}
+
+int max_element(struct bst_node *root)
+{
+    while (root->right != NULL)
+        root = root->right;
+
+    return root->data;
 }
