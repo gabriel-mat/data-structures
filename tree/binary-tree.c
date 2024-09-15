@@ -23,6 +23,7 @@ struct bst_node *root_ptr = NULL;
 
 // functions
 void ShowOptions();
+int height(struct bst_node *root);
 int min_element(struct bst_node *root);
 int max_element(struct bst_node *root);
 bool Search(struct bst_node *root, int value);
@@ -68,6 +69,10 @@ int main()
             printf("max: %d\n", max_element(root_ptr));
             break;
 
+        case 5:
+            printf("height: %d\n", height(root_ptr));
+            break;
+
         default:
             printf("\ntry again!\n");
             break;
@@ -86,6 +91,7 @@ void ShowOptions()
     printf("(02) search value\n");
     printf("(03) min\n");
     printf("(04) max\n");
+    printf("(05) height\n");
     printf("\ninsert an option: ");
 }
 
@@ -136,4 +142,20 @@ int max_element(struct bst_node *root)
         root = root->right;
 
     return root->data;
+}
+
+int height(struct bst_node *root)
+{
+    int l, r;
+
+    if (root == NULL)
+        return -1; // empty tree
+
+    l = height(root->left);
+    r = height(root->right);
+
+    if (l > r)
+        return l + 1;
+    else
+        return r + 1;
 }
