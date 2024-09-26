@@ -156,6 +156,7 @@ int height(struct bst_node *root)
 
     if (l > r)
         return l + 1;
-    else
+    else{
         return r + 1;
+  }
 }
